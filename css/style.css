@@ -1,0 +1,147 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 700px; 
+}
+
+header h1 {
+    font-size: 3rem;
+    letter-spacing: 2px;
+}
+
+.full-width {
+    flex: 1;
+}
+
+h1 {
+    font-weight: normal;
+}
+
+h2 {
+    font-weight: normal;
+}
+
+.help-box {
+    text-align: right;
+}
+
+
+body {
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family: "Abril Fatface", serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+hr {
+    width: 100%;
+}
+
+button {
+    font-family: inherit;
+    font-size: 1rem;
+    background-color: white;
+    color: black;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+
+button:hover {
+    background-color: gray;
+}
+
+#play-btn {
+    width: 100%;
+    font-size: 1.5rem;
+    padding: 15px;
+}
+
+#help-btn {
+    color: white;
+    border: 1px solid white;
+    border-radius: 20px;
+    padding: 5px 15px;
+}
+
+#help-btn:hover {
+    background-color: darkgray;
+}
+
+#instructions {
+    border: 1px solid #555;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 500px;
+    width: 100%;
+}
+
+#instructions ul {
+    text-align: left;
+    padding-left: 20px;
+    margin-top: 15px;
+}
+
+#instruction li {
+    margin-bottom: 8px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-height: 130px;
+
+}
+
+.cards img {
+    width: 90px;
+}
+
+#controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 350px;
+}
+
+#message {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid white;
+    border-radius: 10px;
+    font-size: 1.5rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.action-buttons button {
+    flex: 1;
+}

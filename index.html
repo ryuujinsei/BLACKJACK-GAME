@@ -6,49 +6,54 @@
     <title>DRAKEN Casino</title>
     <link rel="stylesheet" href="./css/style.css">
     <script src="./js/app.js" defer></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
 </head>
 
-
-<header>
-    <h1>BLACKJACK</h1>
-    <button id="help-btn">Help</button>
-</header>
-<section id="instructions">
-    <h2>How to Play</h2>
-        <ul>
-            <li>Get closer to 21 than the dealer without going over.</li>
-            <li>Number cards are worth their number. J, Q and K are worth 10.</li>
-            <li>An Ace is worth 11, or 1 if 11 would take you over 21.</li>
-            <li>Click HIT to take another card. Click STAND to end your turn.</li>
-            <li>The dealer must keep drawing until reaching 17 or more.</li>
-            <li>If your score goes over 21, you lose.</li>
-        </ul>
-</section>
-
-<main>
-    <section id="dealer-section">
-        <h2>Dealer</h2>
-        <div id="dealer-cards" class="cards"></div>
-        <p>Dealer Score:</p><span id="dealer-score">0</span>
-    </section>
-
-    <section id="player-section">
-        <h2>Player</h2>
-        <div id="player-cards" class="'cards"></div>
-        <p>Player Score:</p><span id="player-score">0</span>
-    </section>
-    
-    <div id="controls">
-        <p id="message">Click Play to start</p>
-        <div class="action-buttons">
-            <button id="stand-btn">STAND</button>
-            <button id="hit-btn">HIT</button>
-        </div>
-        <button id="play-btn">PLAY</button>
-
-    </div>
-</main>
 <body>
+    <header>
+    <div class="full-width"></div>
+    <div class="full-width"><h1>BLACKJACK</h1></div>
+    <div class="full-width">    <button id="help-btn">Help</button></div>
+    </header>
+    <section id="instructions">
+        <h2>How to Play</h2>
+            <ul>
+                <li>Get closer to 21 than the dealer without going over.</li>
+                <li>Number cards are worth their number. J, Q and K are worth 10.</li>
+                <li>An Ace is worth 11, or 1 if 11 would take you over 21.</li>
+                <li>Click HIT to take another card. Click STAND to end your turn.</li>
+                <li>The dealer must keep drawing until reaching 17 or more.</li>
+                <li>If your score goes over 21, you lose.</li>
+            </ul>
+    </section>
+
+    <main>
+        <section id="dealer-section" class="hand">
+            <h2>Dealer</h2>
+            <div id="dealer-cards" class="cards"></div>
+            <p id="dealer-score">Dealer Score: 0</p>
+        </section>
+
+        <hr>
+
+        <section id="player-section" class="hand">
+            <h2>Player</h2>
+            <div id="player-cards" class="cards"></div>
+            <p id="player-score">Player Score: 0</p>
+        </section>
     
+        <div id="controls">
+            <p id="message">Click Play to start</p>
+            <div class="action-buttons">
+                <button id="stand-btn">STAND</button>
+                <button id="hit-btn">HIT</button>
+            </div>
+            <button id="play-btn">PLAY</button>
+
+        </div>
+    </main>
+   
 </body>
 </html>
