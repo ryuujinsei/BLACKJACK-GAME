@@ -17,8 +17,8 @@ let round = 0
 let roundOver = true
 let playerWins = 0
 let dealerWins = 0
-let dealerAces = 0
-let playerAces = 0
+let dealerAces11 = false
+let playerAces11 = false
 
 
 /*------------------------ Cached Element References ------------------------*/
@@ -30,18 +30,82 @@ const playerCardsEl = document.querySelector('#player-cards')
 const dealerCardsEl = document.querySelector('#dealer-cards')
 const playBtnEl = document.querySelector('#play-btn')
 
+
 /*-------------------------------- Functions --------------------------------*/
 const drawCard = () => {
-    const card = cards[(Math.floor(Math.random * cards.length))]
+    const card = cards[(Math.floor(Math.random() * cards.length))]
     if (usedCards.includes(card) === true) {
         return drawCard()
     }
     usedCards.push(card)
     return card
 }
-const startGame = () =>  {
-       
+
+const cardValue = (card) => {
+    const value = card.split('-')[1]
+    if (value === 'A') {
+        return 11
+    } else if (value === 'J' || value === 'Q' || value === 'K') {
+        return 10
+    } else {
+        return Number(value)
+    }
 }
+
+const showCard = (card, section) => {
+    const cardImg = document.createElement('img')
+    cardImg.src = '/assets/cards/' + card + '.svg'
+    cardImg.alt = card 
+    section.appendChild(cardImg)
+
+}
+
+const hitPlayer = () => {
+    const drawnCard = drawCard()
+    showCard(drawnCard, playerCardsEl)
+    if (cardValue(drawnCard) === 11) {
+        if (playerScore + 11 > 21) {
+            playerScore = playerScore + 1
+        } else {
+            playerScore = playerScore + 11 
+            playerAces11 = true
+        }
+    } else {
+        playerScore = playerScore + cardValue(drawnCard)
+    }
+
+    if (playerScore > 21 && playerAces11 === true) {
+        playerScore = playerScore -10
+        playerAces11 = false
+    }
+}
+
+const hitDealer = () => {
+        const drawnCard = drawCard()
+    showCard(drawnCard, dealerCardsEl)
+    if (cardValue(drawnCard) === 11) {
+        if (dealerScore + 11 > 21) {
+            dealerScore = dealerScore + 1
+        } else {
+            dealerScore = dealerScore + 11 
+            dealerAces11 = true
+        }
+    } else {
+        dealerScore = dealerScore + cardValue(drawnCard)
+    }
+
+    if (dealerScore > 21 && dealerAces11 === true) {
+        dealerScore = dealerScore -10
+        dealerAces11 = false
+    }
+}
+
+
+
+
+// const startGame = () =>  {
+       
+// }
 
 
 
