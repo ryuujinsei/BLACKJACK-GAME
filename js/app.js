@@ -139,10 +139,15 @@ const startRound = () => {
     result = ''
     roundOver = false
     usedCards = []
+    dealerCardsEl.innerHTML = null
+    playerCardsEl.innerHTML = null
     hitPlayer()
     hitDealer()
     hitPlayer()
     hitDealer()
+    hitBtnEl.disabled = false
+    standBtnEl.disabled = false
+    playBtnEl.disabled = true
     showGame()
 }
 
@@ -168,16 +173,22 @@ const endRound = () => {
     if (result === 'win') {
         playerWins = playerWins + 1
     } else if (result === 'lose') {
-        dealerWins = dealerWins + 1
+        dealerWins = dealerWins + 1 
+    }
+
+    hitBtnEl.disabled = true
+    standBtnEl.disabled = true
+    playBtnEl.disabled = false
     
     if (totalRounds > round) {
         playBtnEl.textContent = 'NEXT ROUND'
+
     } else {
         gameOver = true
         playBtnEl.textContent = 'PLAY AGAIN'
     }
     }
-}
+
 
 const handleHit = () => {
     if (roundOver === true) {

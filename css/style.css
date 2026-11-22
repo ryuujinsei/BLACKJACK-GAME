@@ -64,6 +64,10 @@ button:hover {
     background-color: gray;
 }
 
+button:disabled {
+    background-color: gray;
+}
+
 #play-btn {
     width: 100%;
     font-size: 1.5rem;
