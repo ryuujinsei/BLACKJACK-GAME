@@ -34,6 +34,11 @@ const playerScoreEl = document.querySelector('#player-score')
 
 
 /*-------------------------------- Functions --------------------------------*/
+// const toggleHelp = () => {
+
+// }
+
+
 const drawCard = () => {
     const card = cards[(Math.floor(Math.random() * cards.length))]
     if (usedCards.includes(card) === true) {
@@ -142,9 +147,9 @@ const startRound = () => {
     dealerCardsEl.innerHTML = null
     playerCardsEl.innerHTML = null
     hitPlayer()
-    hitDealer()
-    hitPlayer()
-    hitDealer()
+    setTimeout(hitDealer, 300)
+    setTimeout(hitPlayer, 600)
+    setTimeout(hitDealer, 900)
     hitBtnEl.disabled = false
     standBtnEl.disabled = false
     playBtnEl.disabled = true
