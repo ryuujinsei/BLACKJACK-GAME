@@ -23,12 +23,14 @@ let playerAces11 = false
 
 /*------------------------ Cached Element References ------------------------*/
 const messageEl = document.querySelector('#message')
-const standBtnEl = document.querySelector('stand-btn')
-const hitBtnEl = document.querySelector('hit-btn')
+const standBtnEl = document.querySelector('#stand-btn')
+const hitBtnEl = document.querySelector('#hit-btn')
 const helpBtnEl = document.querySelector('#help-btn')
 const playerCardsEl = document.querySelector('#player-cards')
 const dealerCardsEl = document.querySelector('#dealer-cards')
 const playBtnEl = document.querySelector('#play-btn')
+const dealerScoreEl = document.querySelector('#dealer-score')
+const playerScoreEl = document.querySelector('#player-score')
 
 
 /*-------------------------------- Functions --------------------------------*/
@@ -54,7 +56,7 @@ const cardValue = (card) => {
 
 const showCard = (card, section) => {
     const cardImg = document.createElement('img')
-    cardImg.src = '/assets/cards/' + card + '.svg'
+    cardImg.src = 'assets/cards/' + card + '.svg'
     cardImg.alt = card 
     section.appendChild(cardImg)
 
@@ -100,14 +102,146 @@ const hitDealer = () => {
     }
 }
 
+const updateMessage = () => {
+    if (gameOver === true) {
+        if (playerWins > dealerWins) {
+            messageEl.textContent = 'You won the Game'
+        } else if (dealerWins > playerWins) {
+            messageEl.textContent = 'You lost the Game'
+        } else {
+            messageEl.textContent = 'The Game is a draw'
+        }
+    } else if (roundOver === true) {
+        if (result === 'win') {
+            messageEl.textContent = 'You win this round'
+        } else if (result === 'lose') {
+            messageEl.textContent = 'You lose this round'
+        } else {
+            messageEl.textContent = 'This round is a draw'
+        }
+    } else {
+        messageEl.textContent = 'Round ' + round + ': HIT or STAND?'
+    }
+   
+}
 
+const showGame = () => { 
+    dealerScoreEl.textContent = 'Dealer Score: ' + dealerScore
+    playerScoreEl.textContent = 'Player Score: ' + playerScore
+    updateMessage()
+}
 
+const startRound = () => {
+    dealerScore = 0
+    playerScore = 0 
+    playerAces11 = false
+    dealerAces11 = false
+    result = ''
+    roundOver = false
+    usedCards = []
+    hitPlayer()
+    hitDealer()
+    hitPlayer()
+    hitDealer()
+    showGame()
+}
 
-// const startGame = () =>  {
-       
-// }
+const startGame = () => {
+    round = 1
+    playerWins = 0
+    dealerWins = 0
+    gameOver = false
+    startRound()
+}
 
+const handlePlay = () => {
+    if (gameOver === true) {
+        startGame()
+    } else {
+        round = round + 1
+        startRound()
+    }
+}
 
+const endRound = () => {
+    roundOver = true
+    if (result === 'win') {
+        playerWins = playerWins + 1
+    } else if (result === 'lose') {
+        dealerWins = dealerWins + 1
+    
+    if (totalRounds > round) {
+        playBtnEl.textContent = 'NEXT ROUND'
+    } else {
+        gameOver = true
+        playBtnEl.textContent = 'PLAY AGAIN'
+    }
+    }
+}
+
+const handleHit = () => {
+    if (roundOver === true) {
+        return
+    }
+
+    hitPlayer()
+
+    if (playerScore > 21) {
+        result = 'lose'
+        endRound()
+    }
+    
+    showGame()
+}
+
+const dealerTurn = () => {
+    if (dealerScore >= 17) {
+        return
+    }
+
+    if (dealerScore < 17) {
+        hitDealer()
+        dealerTurn()
+    }
+}
+
+const checkForWinner = () => {
+    if (playerScore > 21) {
+        result = 'lose'
+    } else if (dealerScore > 21) {
+        result = 'win'
+    } else if (playerScore > dealerScore) {
+        result = 'win'
+    } else if (dealerScore > playerScore) {
+        result = 'lose'
+    } else {
+        result = 'draw'
+    }
+}
+
+const handleStand = () => {
+    if (roundOver === true) {
+        return
+    } 
+    dealerTurn()
+    checkForWinner()
+    endRound()
+    showGame()
+}
 
 
 /*----------------------------- Event Listeners -----------------------------*/
+
+
+playBtnEl.addEventListener('click', handlePlay)
+
+standBtnEl.addEventListener('click', handleStand)
+
+hitBtnEl.addEventListener('click', handleHit)
+
+
+
+
+
+
+
