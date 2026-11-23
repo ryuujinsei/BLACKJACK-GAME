@@ -136,6 +136,12 @@ const showGame = () => {
     updateMessage()
 }
 
+const finishDeal = () => {
+    hitBtnEl.disabled = false
+    standBtnEl.disabled = false
+    showGame()
+}
+
 const startRound = () => {
     dealerScore = 0
     playerScore = 0 
@@ -147,13 +153,13 @@ const startRound = () => {
     dealerCardsEl.innerHTML = null
     playerCardsEl.innerHTML = null
     hitPlayer()
+    hitBtnEl.disabled = true
+    standBtnEl.disabled = true
+    playBtnEl.disabled = true
     setTimeout(hitDealer, 300)
     setTimeout(hitPlayer, 600)
     setTimeout(hitDealer, 900)
-    hitBtnEl.disabled = false
-    standBtnEl.disabled = false
-    playBtnEl.disabled = true
-    showGame()
+    setTimeout(finishDeal, 1000)
 }
 
 const startGame = () => {
