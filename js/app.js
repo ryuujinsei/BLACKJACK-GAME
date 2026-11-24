@@ -6,6 +6,9 @@ const cards = [
   'clubs-A', 'clubs-2', 'clubs-3', 'clubs-4', 'clubs-5', 'clubs-6', 'clubs-7', 'clubs-8', 'clubs-9', 'clubs-10', 'clubs-J', 'clubs-Q', 'clubs-K']
 
 const totalRounds = 5
+const dealSound = new Audio('assets/audio/card-deal.mp3')
+const bgMusic = new Audio('assets/audio/bossa-antigua.mp3')
+bgMusic.volume = 0.3
 
 /*---------------------------- Variables (state) ----------------------------*/
 let usedCards = []
@@ -19,6 +22,7 @@ let playerWins = 0
 let dealerWins = 0
 let dealerAces11 = false
 let playerAces11 = false
+let soundOn = true
 
 
 /*------------------------ Cached Element References ------------------------*/
@@ -31,12 +35,20 @@ const dealerCardsEl = document.querySelector('#dealer-cards')
 const playBtnEl = document.querySelector('#play-btn')
 const dealerScoreEl = document.querySelector('#dealer-score')
 const playerScoreEl = document.querySelector('#player-score')
+const roundInfoEl = document.querySelector('#round-info')
 
+const instructions = document.querySelector('.instructions')
+const soundBtnEl = document.querySelector('#sound-btn')
+const soundLabelEl = document.querySelector('#sound-label')
 
 /*-------------------------------- Functions --------------------------------*/
-// const toggleHelp = () => {
+function toggleHelp() {
+if (instructions.style.visibility === "hidden"){
+    instructions.style.visibility = "visible"}
+else {
+    instructions.style.visibility = "hidden"
+}}
 
-// }
 
 
 const drawCard = () => {
@@ -67,9 +79,35 @@ const showCard = (card, section) => {
 
 }
 
+const playDealSound = () => {
+    if (soundOn === true) {
+        dealSound.currentTime = 0
+        dealSound.play()
+    }
+}
+
+const playMusic = () => {
+    if (soundOn === true) {
+        bgMusic.play()
+    }
+}
+
+const toggleSound = () => {
+    if (soundOn === true) {
+        soundOn = false
+        bgMusic.pause()
+        soundLabelEl.textContent = 'Sound Off'
+    } else {
+        soundOn = true
+        bgMusic.play()
+        soundLabelEl.textContent = 'Sound On'
+    }
+}
+
 const hitPlayer = () => {
     const drawnCard = drawCard()
     showCard(drawnCard, playerCardsEl)
+    playDealSound()
     if (cardValue(drawnCard) === 11) {
         if (playerScore + 11 > 21) {
             playerScore = playerScore + 1
@@ -90,6 +128,7 @@ const hitPlayer = () => {
 const hitDealer = () => {
         const drawnCard = drawCard()
     showCard(drawnCard, dealerCardsEl)
+    playDealSound()
     if (cardValue(drawnCard) === 11) {
         if (dealerScore + 11 > 21) {
             dealerScore = dealerScore + 1
@@ -118,11 +157,15 @@ const updateMessage = () => {
         }
     } else if (roundOver === true) {
         if (result === 'win') {
-            messageEl.textContent = 'You win this round'
+            messageEl.textContent = 'You Win!'
+        } else if (result === 'dealerBust') {
+            messageEl.textContent = 'Dealer Busts! You Win!'
+        } else if (result === 'bust') {
+            messageEl.textContent = 'Bust! You Lose'
         } else if (result === 'lose') {
-            messageEl.textContent = 'You lose this round'
+            messageEl.textContent = 'Dealer Wins'
         } else {
-            messageEl.textContent = 'This round is a draw'
+            messageEl.textContent = 'Push'
         }
     } else {
         messageEl.textContent = 'Round ' + round + ': HIT or STAND?'
@@ -133,6 +176,7 @@ const updateMessage = () => {
 const showGame = () => { 
     dealerScoreEl.textContent = 'Dealer Score: ' + dealerScore
     playerScoreEl.textContent = 'Player Score: ' + playerScore
+    roundInfoEl.textContent = 'Round ' + round + ' / ' + totalRounds + '  ·  You ' + playerWins + ' - ' + dealerWins + ' Dealer'
     updateMessage()
 }
 
@@ -171,6 +215,7 @@ const startGame = () => {
 }
 
 const handlePlay = () => {
+    playMusic()
     if (gameOver === true) {
         startGame()
     } else {
@@ -181,9 +226,9 @@ const handlePlay = () => {
 
 const endRound = () => {
     roundOver = true
-    if (result === 'win') {
+    if (result === 'win' || result === 'dealerBust') {
         playerWins = playerWins + 1
-    } else if (result === 'lose') {
+    } else if (result === 'lose' || result === 'bust') {
         dealerWins = dealerWins + 1 
     }
 
@@ -209,7 +254,7 @@ const handleHit = () => {
     hitPlayer()
 
     if (playerScore > 21) {
-        result = 'lose'
+        result = 'bust'
         endRound()
     }
     
@@ -229,9 +274,9 @@ const dealerTurn = () => {
 
 const checkForWinner = () => {
     if (playerScore > 21) {
-        result = 'lose'
+        result = 'bust'
     } else if (dealerScore > 21) {
-        result = 'win'
+        result = 'dealerBust'
     } else if (playerScore > dealerScore) {
         result = 'win'
     } else if (dealerScore > playerScore) {
@@ -261,7 +306,9 @@ standBtnEl.addEventListener('click', handleStand)
 
 hitBtnEl.addEventListener('click', handleHit)
 
+helpBtnEl.addEventListener('click', toggleHelp)
 
+soundBtnEl.addEventListener('click', toggleSound)
 
 
 

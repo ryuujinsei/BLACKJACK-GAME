@@ -20,18 +20,15 @@ End: 24 Nov 2026
 
 
 
-## Credits
-
-Some parts of this project were created with the help of Claude (Anthropic's AI assistant):
-
-- **Playing cards**: all 52 card designs (including the J, Q and K illustrations) and the card back (`assets/cards/`)
-- **Game board**: the burgundy table background (`assets/board/`)
-- **Card dealing sound**: `assets/audio/card-deal.mp3`
-- **Favicon**: `assets/icons/`
-- **Help box**: the Help box CSS
-- **Sound button**: the Sound On/Off button
-- **Title color**: the colour of the BLACKJACK title
+### Credits
+- Game logo from Chatgpt.com
+- Playing cards (all 52 cards, the J/Q/K illustrations and the card back) made with Claude (claude.ai)
+- Game board (burgundy table background) made with Claude
+- Card dealing sound and the code that plays it made with Claude
+- Favicon made with Claude
+- Help box and its CSS made with Claude
+- Sound button made with Claude
+- Title color made with Claude
 - Responsive design (@media CSS) so the game works on phones, made with Claude
-
-Fonts used inside the assets: Roboto (card corners) and Cardo (board lettering), both under the SIL Open Font License.
-The game logic and the rest of the code were written by me.
+- Fonts inside the card and board images: Roboto and Cardo (SIL Open Font License)
+- The game logic and the rest of the code were written by me
